@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 台師大資訊工程營 | NTNU CSIE Camp</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS 變數設定 --- */
+        :root {
+            --bg-color: #0d0d10;       /* 極深黑紫 */
+            --card-bg: #1a1a20;        /* 區塊背景 */
+            --text-main: #e0e0e0;      /* 主要文字 */
+            --text-muted: #a0a0a0;     /* 次要文字 */
+            --accent-primary: #00ffcc; /* 青色光暈 */
+            --accent-secondary: #bd00ff; /* 紫色光暈 */
+            --font-main: 'Noto Serif TC', serif; /* 思源宋體 */
+        }
+
+        /* --- 全局設定 --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- 導覽列 --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 13, 16, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: var(--text-main);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a:hover {
+            color: var(--accent-primary);
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.4);
+        }
+
+        /* --- Hero Section (主視覺) --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, var(--bg-color) 70%);
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        /* 裝飾用的背景光暈 */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--accent-secondary);
+            filter: blur(150px);
+            opacity: 0.2;
+            top: 20%;
+            left: 20%;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--text-main), var(--accent-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 255, 204, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            padding: 1rem 3rem;
+            background: transparent;
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-primary);
+            font-size: 1.1rem;
+            font-family: var(--font-main);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: var(--accent-primary);
+            color: var(--bg-color);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+        }
+
+        /* --- 區塊通用設定 --- */
+        section {
+            padding: 5rem 10%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-secondary);
+            margin: 1rem auto 0;
+        }
+
+        /* --- 關於營隊 --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-primary);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+            text-align: justify;
+        }
+
+        /* 模擬圖片區塊 */
+        .placeholder-img {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #2a2a35, #1a1a20);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.2);
+            font-size: 1.2rem;
+        }
+
+        /* --- 課程特色 --- */
+        .features {
+            background-color: var(--card-bg);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-color);
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-secondary);
+        }
+
+        .feature-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- 報名資訊 --- */
+        .info-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .info-item {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 2rem;
+        }
+
+        .info-label {
+            color: var(--accent-primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .info-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background: #000;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- RWD 手機版調整 --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav { display: none; } /* 手機版可另外製作漢堡選單 */
+            .about-grid { grid-template-columns: 1fr; }
+            section { padding: 4rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">NTNU CSIE CAMP 2026</div>
+        <nav>
+            <ul>
+                <li><a href="#about">關於營隊</a></li>
+                <li><a href="#courses">課程特色</a></li>
+                <li><a href="#info">報名資訊</a></li>
+                <li><a href="#contact">聯絡我們</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>2026 台師大資訊工程營</h1>
+        <p>探索程式邏輯的深淵 · 編織未來的數位藍圖</p>
+        <button class="btn">立即報名</button>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">關於營隊</h2>
+        <div class="about-grid">
+            <div class="placeholder-img">[營隊活動照片/主視覺圖]</div>
+            <div class="about-text">
+                <h3>啟動你的工程師思維</h3>
+                <p>這不僅僅是一個營隊，這是一場前往資訊世界的冒險。在台師大資工營，我們將帶領高中生深入了解電腦科學的核心。從演算法的奧秘到軟體開發的實務，我們透過思源宋體的優雅與代碼的理性，交織出最充實的寒假體驗。</p>
+                <p>如果你渴望了解大學資工系在學什麼，或者你想親手寫出人生第一支程式，這裡就是你的起點。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="courses" class="features">
+        <h2 class="section-title">課程與活動</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>C++ 程式設計</h4>
+                <p>從變數宣告到指標運算，紮實打好程式語言基礎，體驗與電腦底層對話的樂趣。</p>
+            </div>
+            <div class="feature-card">
+                <h4>演算法導論</h4>
+                <p>學習如何像電腦科學家一樣思考，用最高效的邏輯解決複雜的問題。</p>
+            </div>
+            <div class="feature-card">
+                <h4>人工智慧體驗</h4>
+                <p>揭開 AI 神秘的面紗，了解機器學習背後的原理與未來應用趨勢。</p>
+            </div>
+            <div class="feature-card">
+                <h4>RPG 實境解謎</h4>
+                <p>結合程式邏輯的大型大地遊戲，考驗團隊合作與腦力激盪的極限。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="info">
+        <h2 class="section-title">活動資訊</h2>
+        <div class="info-container">
+            <div class="info-item">
+                <span class="info-label">活動日期</span>
+                <span class="info-value">2026年 7月 XX日 - 7月 XX日</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">活動地點</span>
+                <span class="info-value">國立臺灣師範大學 公館校區</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">報名費用</span>
+                <span class="info-value">NT$ 6,500 / 人 (早鳥優惠實施中)</span>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <button class="btn">前往報名表單</button>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p>&copy; 2026 National Taiwan Normal University Dept. of CSIE. All Rights Reserved.</p>
+        <p style="margin-top: 10px; opacity: 0.6;">Design for Future Engineers</p>
+    </footer>
+
+</body>
+</html>
